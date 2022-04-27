@@ -82,9 +82,8 @@ func _process_state_next(delta):
 	content = content.replace("\r\n", "\n")
 	var lines : Array = content.split("\n")
 	
-	var current_content_container : VBoxContainer = VBoxContainer.new()
-	current_content_container.set("custom_constants/separation", 0)
-	_content_container.add_child(current_content_container)
+	var current_content_container : VBoxContainer = create_sub_content_container()
+	
 	var in_class : bool = false
 	var current_class_access_modifier : int = AccessModifierState.ACCESS_MODIFIER_PRIVATE
 	var class_control : Control = null
@@ -100,9 +99,8 @@ func _process_state_next(delta):
 			continue
 			
 		if l.begins_with("new_column"):
-			current_content_container = VBoxContainer.new()
-			current_content_container.set("custom_constants/separation", 0)
-			_content_container.add_child(current_content_container)
+			current_content_container = create_sub_content_container()
+
 			continue
 			
 		if l.begins_with("inherit"):
@@ -171,3 +169,11 @@ func clear_content():
 	for c in _content_container.get_children():
 		c.queue_free()
 		_content_container.remove_child(c)
+
+func create_sub_content_container():
+	var content_container : VBoxContainer = VBoxContainer.new()
+	content_container.set("custom_constants/separation", 0)
+	content_container.alignment = BoxContainer.ALIGN_CENTER
+	_content_container.add_child(content_container)
+	
+	return content_container
