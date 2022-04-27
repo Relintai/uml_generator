@@ -6,6 +6,9 @@ It's designed to generate UML diagrams from header-like code with minimal change
 
 Should work with godot 3.x aswell, but you will need to create the project file.
 
+Note that the image generation algorithm relies on the app's window being able to be resized, 
+so the thing will only work on dekstop platforms.
+
 ## Some example outputs
 
 ![Directory class](project/examples/example_output/directory.umlg.png)
@@ -16,6 +19,46 @@ The input files themselves can be found [here](project/examples).
 
 ## Usage
 
+Grab the editor for the platform of your choice, and the app project itself. (project folder in this repository).
+
+Open the project folder with the engine.
+
+1. Copy your input files into the data (next to the examples folder) folder. (Create it if doesn't exists). [[Example files]](project/examples)
+2. Run the app from the engine (F5).
+3. It will generate the output images into the output folder. (Next to the data folder.)
+
+The input files themselves can be found [here](project/examples).
+
+## Input file syntax
+
+It's very similar to c++ headers.
+These files are read and processed line-by-line like a script.
+
+#### If you start from a c++ header:
+
+- Remove method implementations.
+- Remove includes, macro implementations etc.
+- Use `class <name>` or `struct <name>` keyword to start a class. Like `class Object`
+- Use the `inherit` keyword to add an arrow below your current class.
+- By default the thing uses c++ style access modifiers. `public:`, `protected:`, `private:` is interpreted as expected.
+- If you use a class you start with everything being private, with srtucts you start with everything being public.
+- Starting a line with -- Will add a HSeparator to a class
+- Lines starting with # are comments.
+- `;`s get removed automatically
+- Using keyword `new_column` and then adding a class will add that class next to the previously added classes like [here](project/examples/example_output/file_cache.umlg.png).
+
+#### Access modifiers
+
+By default the thing uses c++ style access modifiers. This can be changed when parsing a file.
+
+If you want to use java / c# sytle access modifiers use the `access_modifier_parse_type INDIVIDUAL` keyword.
+If you want to switch back to c++ style access modifiers you can use the `access_modifier_parse_type GROUPED` keyword.
+If you want to turn off access modifiers you can use the `access_modifier_parse_type IGNORE` keyword.
+
+#### Examples
+
+I recommend looking at the provided example files available [here](project/examples).
+
 ## Editing the project
 
 Grab the engine itself, and then open the project inside the `project` folder.
@@ -24,6 +67,8 @@ Grab the engine itself, and then open the project inside the `project` folder.
 
 For convenience my project setup script is provided to simplify the workflow, however I recommend just 
 downloading the prebuilt executables. This project is not expected to change much.
+
+You can also get prebuilt engine executables form the engine's repo's actions tab [[here]](https://github.com/Relintai/pandemonium_engine/actions).
 
 First make sure, that you have everything installed to be able to compile the engine. 
 See the [official docs for compiling Godot](https://docs.godotengine.org/en/3.4/development/compiling/index.html) for more info. 
