@@ -3,6 +3,7 @@ extends Control
 var BaseClassArrow = preload("res://BaseClassArrow.tscn")
 var ClassControl = preload("res://ClassControl.tscn")
 
+export(NodePath) var main_container_path : NodePath
 export(NodePath) var content_container_path : NodePath
 
 enum States {
@@ -156,11 +157,13 @@ func _process_state_next(delta):
 	_current_state = States.STATE_RESIZE_WINDOW
 
 func _process_state_resize_window(delta):
-	pass
-	#_current_state = States.STATE_TAKE_SCREENSHOT
+	var rs : Vector2 = get_node(main_container_path).rect_size
+	OS.window_size = rs
 	
+	_current_state = States.STATE_TAKE_SCREENSHOT
 	
 func _process_state_take_screenshot(delta):
+	return
 	
 	_current_index += 1
 	_current_state = States.STATE_NEXT

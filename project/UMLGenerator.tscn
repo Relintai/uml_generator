@@ -8,10 +8,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 4 )
 script = ExtResource( 1 )
-content_container_path = NodePath("ScrollContainer/Content")
+main_container_path = NodePath("ScrollContainer/MarginContainer")
+content_container_path = NodePath("ScrollContainer/MarginContainer")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
 
-[node name="Content" type="HBoxContainer" parent="ScrollContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer"]
+margin_right = 16.0
+margin_bottom = 16.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="Content" type="HBoxContainer" parent="ScrollContainer/MarginContainer"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 8.0
+margin_bottom = 8.0
