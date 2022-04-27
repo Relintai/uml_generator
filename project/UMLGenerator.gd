@@ -18,6 +18,12 @@ enum AccessModifierState {
 	ACCESS_MODIFIER_PUBLIC
 };
 
+enum AccessModifierParseType {
+	ACCESS_MODIFIER_PARSE_TYPE_GROUPED = 0,
+	ACCESS_MODIFIER_PARSE_TYPE_INDIVIDUAL = 1,
+	ACCESS_MODIFIER_PARSE_TYPE_IGNORE = 2,
+};
+
 var _content_container : Control
 var _files : PoolStringArray
 var _error_files : PoolStringArray
@@ -87,8 +93,10 @@ func _process_state_next(delta):
 	
 	var in_class : bool = false
 	var current_class_access_modifier : int = AccessModifierState.ACCESS_MODIFIER_PRIVATE
+	var current_access_modifier_parse_type : int = AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_GROUPED
 	var class_control : Control = null
 	
+
 	for i in range(lines.size()):
 		var l : String = lines[i]
 		l = l.strip_edges()
@@ -98,6 +106,19 @@ func _process_state_next(delta):
 			
 		if l[0] == "#":
 			continue
+			
+		if l.begins_with("access_modifier_parse_type "):
+			var t : String = l.trim_prefix("access_modifier_parse_type ")
+			
+			if t == "GROUPED" || t == "ACCESS_MODIFIER_PARSE_TYPE_GROUPED" || t == "0":
+				current_access_modifier_parse_type = AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_GROUPED
+			elif t == "INDIVIDUAL" || t == "ACCESS_MODIFIER_PARSE_TYPE_INDIVIDUAL" || t == "1":
+				current_access_modifier_parse_type = AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_INDIVIDUAL
+			elif t == "IGNORE" || t == "ACCESS_MODIFIER_PARSE_TYPE_IGNORE" || t == "2":
+				current_access_modifier_parse_type = AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_IGNORE
+				
+			continue
+
 			
 		if l.begins_with("new_column"):
 			current_content_container = create_sub_content_container()
@@ -144,12 +165,27 @@ func _process_state_next(delta):
 		
 		l = l.replace(";", "")
 		
-		if current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PUBLIC:
-			l = "+ " + l
-		elif current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PROTECTED:
-			l = "# " + l
-		elif current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PRIVATE:
-			l = "- " + l
+		if current_access_modifier_parse_type == AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_GROUPED:
+			if current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PUBLIC:
+				l = "+ " + l
+			elif current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PROTECTED:
+				l = "# " + l
+			elif current_class_access_modifier == AccessModifierState.ACCESS_MODIFIER_PRIVATE:
+				l = "- " + l
+				
+		elif current_access_modifier_parse_type == AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_INDIVIDUAL:
+			if l.find("public ") != -1:
+				l = l.replace("public ", "+ ")
+			elif l.find("protected ") != -1:
+				l = l.replace("protected ", "# ")
+			elif l.find("private ") != -1:
+				l = l.replace("private ", "- ")
+			else:
+				l = "- " + l
+				
+		elif current_access_modifier_parse_type == AccessModifierParseType.ACCESS_MODIFIER_PARSE_TYPE_IGNORE:
+			#ignore
+			pass
 		
 		class_control.add_line(l)
 	

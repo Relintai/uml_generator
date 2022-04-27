@@ -1,0 +1,100 @@
+
+access_modifier_parse_type INDIVIDUAL
+
+class Widget
+inherit
+class PlayField
+	private final Circle knobBounds = new Circle(0, 0, 0); 
+	private final Circle deadzoneBounds = new Circle(0, 0, 0);
+	private final Vector2 knobPosition = new Vector2();
+	private final Vector2 knobPercent = new Vector2();
+	--
+	private GameData gameData;
+	private Player player;
+	
+	private PlayFieldStyle style;
+	--
+	boolean touched;
+	private final Rectangle bounds = new Rectangle();
+	private final Vector2 selectedGem = new Vector2();
+	private final Vector2 selectedMoveTo = new Vector2();
+	private boolean isGemSelected = false;
+	private boolean isGemMoving = false;
+	private boolean isGemReturning = false;
+	private boolean isGemFalling = false;
+	private boolean isGemFallingFromTop = false;
+	private boolean isGemMissing = false;
+	private float timeSinceLastMove = 0;
+	private int[] playerDestroyed;
+	private int playerTouchColor;
+	private float fallSpeed;
+	private float moveSpeed;
+--
+	private GemHelper[][] gems;
+	--
+	public PlayField (Skin skin, GameData gameData, Player player);
+	public PlayField (Skin skin, String styleName, GameData gameData, Player player);
+	public PlayField (PlayFieldStyle style, GameData gameData, Player player);
+	void calculatePositionAndValue (float x, float y, boolean isTouchUp);
+--
+	public void swapGems(int i, int j);
+	
+	public void setStyle (PlayFieldStyle style);
+
+	public PlayFieldStyle getStyle ();
+
+	public Actor hit (float x, float y, boolean touchable);
+--
+
+	public void layout ();
+
+	public void draw (SpriteBatch batch, float parentAlpha);
+	public float getPrefWidth ();
+
+	public float getPrefHeight ();
+	
+	public boolean isTouched ();
+
+	public void act (float delta);
+--
+	public void setGemFalling(int i, int fromJ, int toJ, boolean fromTop);
+	
+	protected void checkFalling();
+	
+	public void setGemMissing();
+	public void setPlayerDestroyed(int[] dest);
+	
+	public void reShuffle();
+
+
+new_column
+
+	class PlayFieldStyle
+		public Drawable gemRed;
+		public Drawable gemViolet;
+		public Drawable gemGreen;
+		public Drawable gemYellow;
+		public Drawable gemBlue;
+		
+		public Drawable background;
+
+		public PlayFieldStyle ();
+
+		public PlayFieldStyle (Drawable gemRed, Drawable gemViolet, Drawable gemGreen, Drawable gemYellow, Drawable gemBlue, Drawable background);
+
+		public PlayFieldStyle (PlayFieldStyle style);
+
+
+	public static class GemHelper
+		public Rectangle bounds;
+		public boolean falling;
+		public float fallY;
+		public boolean movingX;
+		public boolean movingY;
+		public float moveToX;
+		public float moveToY;
+		public int directionFactor;
+		
+		public GemHelper();
+		
+		public GemHelper(Rectangle bounds);
