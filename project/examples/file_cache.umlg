@@ -1,0 +1,43 @@
+
+class Object
+inherit
+
+class FileCache
+public:
+    String wwwroot;
+    int cache_invalidation_time;
+--
+    void wwwroot_register_file(const String &file_path);
+    void wwwroot_deregister_file(const String &file_path);
+    bool wwwroot_has_file(const String &file_path);
+    void wwwroot_refresh_cache();
+    void wwwroot_evaluate_dir(const char *path, const bool should_exist = true);
+--
+    bool get_cached_body(const String &path, String *body);
+    void set_cached_body(const String &path, const String &body);
+--
+    void clear();
+--
+    FileCache(bool singleton = false);
+    virtual ~FileCache();
+--
+    static FileCache *get_singleton();
+--
+    std::set<String> registered_files;
+--
+protected:
+
+    RWLock _lock;
+    std::map<String, CacheEntry *> cache_map;
+
+private:
+    static FileCache *_instance;
+
+
+new_column
+
+     struct CacheEntry
+        int64_t timestamp;
+        String body;
+
+        CacheEntry();
