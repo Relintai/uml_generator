@@ -166,7 +166,7 @@ func _process_state_take_screenshot(delta):
 	var img : Image = vt.get_data()
 	img.flip_y()
 	
-	img.save_png("res://output/" + _files[_current_index])
+	img.save_png("res://output/" + _files[_current_index] + ".png")
 	
 	_current_index += 1
 	_current_state = States.STATE_NEXT
