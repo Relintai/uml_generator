@@ -122,7 +122,8 @@ public:
 	uint32_t to_uint() const;
 	std::string to_string() const;
 	void print() const;
---
+new_column
+class String (cont)
 	void append(const char *str);
 	void append(const wchar_t *str);
 	void append(const String &other);
