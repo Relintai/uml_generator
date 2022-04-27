@@ -82,6 +82,9 @@ func _process_state_next(delta):
 	content = content.replace("\r\n", "\n")
 	var lines : Array = content.split("\n")
 	
+	var current_content_container : VBoxContainer = VBoxContainer.new()
+	current_content_container.set("custom_constants/separation", 0)
+	_content_container.add_child(current_content_container)
 	var in_class : bool = false
 	var current_class_access_modifier : int = AccessModifierState.ACCESS_MODIFIER_PRIVATE
 	var class_control : Control = null
@@ -96,13 +99,19 @@ func _process_state_next(delta):
 		if l[0] == "#":
 			continue
 			
+		if l.begins_with("new_column"):
+			current_content_container = VBoxContainer.new()
+			current_content_container.set("custom_constants/separation", 0)
+			_content_container.add_child(current_content_container)
+			continue
+			
 		if l.begins_with("base_class "):
 			var base_class : String = l.trim_prefix("base_class ")
 			
 			var bcc = BaseClassControl.instance()
 			bcc.set_base_class_name(base_class)
 			
-			_content_container.add_child(bcc)
+			current_content_container.add_child(bcc)
 			continue
 			
 		if l.begins_with("class "):
@@ -110,7 +119,7 @@ func _process_state_next(delta):
 			current_class_access_modifier = AccessModifierState.ACCESS_MODIFIER_PRIVATE
 			class_control = ClassControl.instance()
 			class_control.set_class_name(l.trim_prefix("class "))
-			_content_container.add_child(class_control)
+			current_content_container.add_child(class_control)
 			continue
 			
 		if l.begins_with("struct "):
@@ -118,7 +127,7 @@ func _process_state_next(delta):
 			current_class_access_modifier = AccessModifierState.ACCESS_MODIFIER_PUBLIC
 			class_control = ClassControl.instance()
 			class_control.set_class_name(l.trim_prefix("struct "))
-			_content_container.add_child(class_control)
+			current_content_container.add_child(class_control)
 			continue
 			
 		if l.begins_with("public:"):
