@@ -1,6 +1,9 @@
 \exports/
 \.import/
 
+data/*
+output/*
+
 addons/scene_notes/
 
 addons/todo/
