@@ -9,7 +9,7 @@ anchor_bottom = 1.0
 theme = ExtResource( 4 )
 script = ExtResource( 1 )
 main_container_path = NodePath("ScrollContainer/MarginContainer")
-content_container_path = NodePath("ScrollContainer/MarginContainer")
+content_container_path = NodePath("ScrollContainer/MarginContainer/Content")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 margin_right = 1024.0
