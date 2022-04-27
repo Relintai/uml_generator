@@ -15,7 +15,7 @@ so the thing will only work on dekstop platforms.
 ![FileCache class](project/examples/example_output/file_cache.umlg.png)
 ![PlayField class](project/examples/example_output/PlayField.java.umlg.png)
 
-The input files themselves can be found [here](project/examples).
+The example input files themselves can be found [here](project/examples).
 
 ## Usage
 
@@ -27,8 +27,6 @@ Open the project folder with the engine.
 2. Run the app from the engine (F5).
 3. It will generate the output images into the output folder. (Next to the data folder.)
 
-The input files themselves can be found [here](project/examples).
-
 ## Input file syntax
 
 It's very similar to c++ headers.
@@ -38,11 +36,11 @@ These files are read and processed line-by-line like a script.
 
 - Remove method implementations.
 - Remove includes, macro implementations etc.
-- Use `class <name>` or `struct <name>` keyword to start a class. Like `class Object`
+- Use `class <name>` or `struct <name>` keyword to start a class. Like: `class Object`
 - Use the `inherit` keyword to add an arrow below your current class.
 - By default the thing uses c++ style access modifiers. `public:`, `protected:`, `private:` is interpreted as expected.
-- If you use a class you start with everything being private, with srtucts you start with everything being public.
-- Starting a line with -- Will add a HSeparator to a class
+- If you use a class you start with everything being private, with structs you start with everything being public.
+- Starting a line with -- will add a HSeparator to a class
 - Lines starting with # are comments.
 - `;`s get removed automatically
 - Using keyword `new_column` and then adding a class will add that class next to the previously added classes like [here](project/examples/example_output/file_cache.umlg.png).
@@ -51,9 +49,9 @@ These files are read and processed line-by-line like a script.
 
 By default the thing uses c++ style access modifiers. This can be changed when parsing a file.
 
-If you want to use java / c# sytle access modifiers use the `access_modifier_parse_type INDIVIDUAL` keyword.
-If you want to switch back to c++ style access modifiers you can use the `access_modifier_parse_type GROUPED` keyword.
-If you want to turn off access modifiers you can use the `access_modifier_parse_type IGNORE` keyword.
+- If you want to use java / c# sytle access modifiers use the `access_modifier_parse_type INDIVIDUAL` keyword.
+- If you want to switch back to c++ style access modifiers you can use the `access_modifier_parse_type GROUPED` keyword.
+- If you want to turn off access modifiers you can use the `access_modifier_parse_type IGNORE` keyword.
 
 #### Examples
 
