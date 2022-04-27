@@ -1,6 +1,6 @@
 extends Control
 
-var BaseClassControl = preload("res://BaseClassControl.tscn")
+var BaseClassArrow = preload("res://BaseClassArrow.tscn")
 var ClassControl = preload("res://ClassControl.tscn")
 
 export(NodePath) var content_container_path : NodePath
@@ -105,12 +105,8 @@ func _process_state_next(delta):
 			_content_container.add_child(current_content_container)
 			continue
 			
-		if l.begins_with("base_class "):
-			var base_class : String = l.trim_prefix("base_class ")
-			
-			var bcc = BaseClassControl.instance()
-			bcc.set_base_class_name(base_class)
-			
+		if l.begins_with("inherit"):
+			var bcc = BaseClassArrow.instance()
 			current_content_container.add_child(bcc)
 			continue
 			
