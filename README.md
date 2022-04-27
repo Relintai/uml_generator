@@ -12,7 +12,7 @@ Should work with godot 3.x aswell, but you will need to create the project file.
 ![FileCache class](project/examples/example_output/file_cache.umlg.png)
 ![PlayField class](project/examples/example_output/PlayField.java.umlg.png)
 
-The input files themselves can be found [here](data/examples).
+The input files themselves can be found [here](project/examples).
 
 ## Usage
 
