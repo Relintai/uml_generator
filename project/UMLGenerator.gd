@@ -101,7 +101,6 @@ func _process_state_next(delta):
 			
 		if l.begins_with("new_column"):
 			current_content_container = create_sub_content_container()
-
 			continue
 			
 		if l.begins_with("inherit"):
@@ -163,7 +162,11 @@ func _process_state_resize_window(delta):
 	_current_state = States.STATE_TAKE_SCREENSHOT
 	
 func _process_state_take_screenshot(delta):
-	return
+	var vt : ViewportTexture = get_tree().root.get_texture()
+	var img : Image = vt.get_data()
+	img.flip_y()
+	
+	img.save_png("res://output/" + _files[_current_index])
 	
 	_current_index += 1
 	_current_state = States.STATE_NEXT
