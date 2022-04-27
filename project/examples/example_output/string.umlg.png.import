@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/string.umlg.png-650f47c1c4ba6b1bb686ff9911e36cdb.stex"
+path="res://.import/string.umlg.png-db35c5711edb91371a4892c80d49428d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://output/string.umlg.png"
-dest_files=[ "res://.import/string.umlg.png-650f47c1c4ba6b1bb686ff9911e36cdb.stex" ]
+source_file="res://examples/example_output/string.umlg.png"
+dest_files=[ "res://.import/string.umlg.png-db35c5711edb91371a4892c80d49428d.stex" ]
 
 [params]
 

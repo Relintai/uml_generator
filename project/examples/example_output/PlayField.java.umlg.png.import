@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/PlayField.java.umlg.png-c1c7fa78a62880e9b092404ac7e79a33.stex"
+path="res://.import/PlayField.java.umlg.png-fad9fe96d24422d4cbdf897d23190583.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://output/PlayField.java.umlg.png"
-dest_files=[ "res://.import/PlayField.java.umlg.png-c1c7fa78a62880e9b092404ac7e79a33.stex" ]
+source_file="res://examples/example_output/PlayField.java.umlg.png"
+dest_files=[ "res://.import/PlayField.java.umlg.png-fad9fe96d24422d4cbdf897d23190583.stex" ]
 
 [params]
 
