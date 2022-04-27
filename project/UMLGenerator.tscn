@@ -1,5 +1,19 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
 
-[node name="UMLGen" type="Control"]
+[ext_resource path="res://UMLGenerator.gd" type="Script" id=1]
+[ext_resource path="res://new_theme.tres" type="Theme" id=4]
+
+[node name="UMLGen" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+content_container_path = NodePath("ScrollContainer/Content")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="Content" type="VBoxContainer" parent="ScrollContainer"]
+custom_constants/separation = 0
+alignment = 1
