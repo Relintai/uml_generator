@@ -134,6 +134,17 @@ func _process_state_next(delta):
 			current_class_access_modifier = AccessModifierState.ACCESS_MODIFIER_PRIVATE
 			class_control = ClassControl.instance()
 			class_control.set_class_name(l.trim_prefix("class "))
+			
+			if current_content_container.get_child_count() > 0:
+				var c : Node = current_content_container.get_child(current_content_container.get_child_count() - 1)
+				
+				# Add spacer if the last added thing was a class (ClassControl.tscn)
+				if c is PanelContainer: # Not elegant, but will work for now
+					var spacer : Control = Control.new()
+					spacer.rect_min_size = Vector2(0, 20)
+					current_content_container.add_child(spacer)
+				
+			
 			current_content_container.add_child(class_control)
 			continue
 			
@@ -142,6 +153,16 @@ func _process_state_next(delta):
 			current_class_access_modifier = AccessModifierState.ACCESS_MODIFIER_PUBLIC
 			class_control = ClassControl.instance()
 			class_control.set_class_name(l.trim_prefix("struct "))
+			
+			if current_content_container.get_child_count() > 0:
+				var c : Node = current_content_container.get_child(current_content_container.get_child_count() - 1)
+				
+				# Add spacer if the last added thing was a class (ClassControl.tscn)
+				if c is PanelContainer: # Not elegant, but will work for now
+					var spacer : Control = Control.new()
+					spacer.rect_min_size = Vector2(0, 20)
+					current_content_container.add_child(spacer)
+			
 			current_content_container.add_child(class_control)
 			continue
 			
